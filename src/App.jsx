@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 
 import reactLogo from './assets/react.svg'
-import './App.css'
+
 import { increment, decrement, incrementBy } from './store/slices/counter';
 
 function App() {
