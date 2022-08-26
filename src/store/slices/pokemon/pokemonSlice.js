@@ -4,7 +4,7 @@ export const pokemonSlice = createSlice({
     name: 'pokemon',
     initialState: {
         page: 0,
-        pokemon: [],
+        pokemons: [],
         isLoading: false,
     },
     reducers: {
@@ -12,7 +12,9 @@ export const pokemonSlice = createSlice({
             state.isLoading = true;
         },
         setPokemon: ( state, action ) => {
-            console.log(action);
+            state.isLoading = false;
+            state.page = action.payload.page;
+            state.pokemons = action.payload.pokemons;
         }
     }
 });
