@@ -1,10 +1,23 @@
-import { useGetTodosQuery } from "./store/apis"
+import { useState } from "react";
+import { useGetTodoByIdQuery, useGetTodosQuery } from "./store/apis"
 
 export const TodoApp = () => {
 
-  // Cambiar nombre a la propiedad destructurada (data: [nuevo_nombre])
-  const { data: todos = [], isLoading } = useGetTodosQuery();
+  const [todoId, setTodoId] = useState(1);
 
+  // Cambiar nombre a la propiedad destructurada (data: [nuevo_nombre])
+  // const { data: todos = [], isLoading } = useGetTodosQuery();
+  const { data: todo, isLoading } = useGetTodoByIdQuery( todoId );
+
+
+  const previousTodo = () => {
+    if( todoId === 1 ) return;
+    setTodoId( todoId - 1 );
+  }
+
+  const nextTodo = () => {
+    setTodoId( todoId + 1 );
+  }
 
 
   return (
@@ -15,10 +28,18 @@ export const TodoApp = () => {
         <h4>IsLoading: { isLoading ? 'True' : 'False' } </h4>
 
         <pre>
-            
+            { JSON.stringify( todo ) }
         </pre>
 
-        <ul>
+        <button onClick={ previousTodo } >
+            Previous Todo
+        </button>
+
+        <button onClick={ nextTodo }>
+            Next Todo
+        </button>
+
+        {/* <ul>
           {
             todos.map( todo => (
               <li key={ todo.id }>
@@ -27,11 +48,9 @@ export const TodoApp = () => {
               </li>
             ))
           }
-        </ul>
+        </ul> */}
 
-        <button>
-            Next Todo
-        </button>
+     
     </>
   )
 }
